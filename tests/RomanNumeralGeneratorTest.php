@@ -3,7 +3,6 @@
 namespace Larowlan\RomanNumeral\Tests;
 
 use Larowlan\RomanNumeral\RomanNumeralGenerator;
-
 /**
  * Defines a class for testing roman numeral generation.
  *
@@ -32,7 +31,18 @@ class RomanNumeralGeneratorTest extends \PHPUnit_Framework_TestCase {
    * @dataProvider providerTestGeneration
    */
   public function testGeneration($number, $expected) {
-    $this->assertEquals($expected, $this->generator->generate($number));
+  	$this->assertEquals($this->generator->generate($number,FALSE),$expected);
+  }
+  
+  
+  /**
+   * Tests roman numeral generation.
+   *
+   * @dataProvider providerTestGeneration_lowercase
+   */
+  
+  public function testGeneration_lowercase($number, $expected) {
+  	$this->assertEquals($this->generator->generate($number,TRUE),$expected);
   }
 
   /**
@@ -63,4 +73,30 @@ class RomanNumeralGeneratorTest extends \PHPUnit_Framework_TestCase {
       3000 => [3000, "MMM"],
     ];
   }
+  
+  public function providerTestGeneration_lowercase() {
+    return [
+      1 => [1, "i"],
+      2 => [2, "ii"],
+      3 => [3, "iii"],
+      4 => [4, "iv"],
+      5 => [5, "v"],
+      6 => [6, "vi"],
+      9 => [9, "ix"],
+      27 => [27, "xxvii"],
+      48 => [48, "xlviii"],
+      59 => [59, "lix"],
+      93 => [93, "xciii"],
+      141 => [141, "cxli"],
+      163 => [163, "clxiii"],
+      402 => [402, "cdii"],
+      575 => [575, "dlxxv"],
+      911 => [911, "cmxi"],
+      1024 => [1024, "mxxiv"],
+      3000 => [3000, "mmm"],
+    ];
+  }
+
+  
+  
 }
