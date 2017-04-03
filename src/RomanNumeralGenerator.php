@@ -19,17 +19,28 @@ class RomanNumeralGenerator {
    *   Roman numeral representing the passed integer.
    */
   public function generate($number,$lowerCase) {
-  	/*to check if the lowercase numerals are been passed, its checked by passing the parameter as TRUE*/
+  	
+  	$actual_number=intval($number);
+  	$result='';
+  	
+  	//array to store romain numbers
+  	$array_romans = array('M' => 1000,'CM' => 900,'D' => 500,'CD' => 400,'C' => 100,'XC' => 90,'L' => 50,'XL' => 40,'X' => 10,'IX' => 9,'V' => 5,'IV' => 4,'I' => 1);
+  	
+  	//logic to generate a roman numeral based on the integer input
+  	foreach($array_romans as $roman_number => $value){
+  		$matches = intval($actual_number/$value);
+  		$result .= str_repeat($roman_number,$matches);
+  		$actual_number = $actual_number % $value;
+  	}
+  	
   	
   	if($lowerCase) {
-	//deifining lowercase numerals
-	$romans_lowercase = array(1 => "i", 2 => "ii", 3 => "iii", 4 => "iv", 5 => "v", 6 => "vi", 9 => "ix", 27 => "xxvii", 48 => "xlviii", 59 => "lix", 93 => "xciii", 141 => "cxli", 163 => "clxiii", 402 => "cdii", 575 => "dlxxv", 911 => "cmxi", 1024 => "mxxiv", 3000 => "mmm");
-  		return $romans_lowercase[$number];	  	
+	//return as lowercase roman numerals
+	return strtolower($result);
 	}
   	else {
-  	//deifining uppercase numerals
-  	$romans= array(1 => "I", 2 => "II", 3 => "III", 4 => "IV", 5 => "V", 6 => "VI", 9 => "IX", 27 => "XXVII", 48 => "XLVIII", 59 => "LIX", 93 => "XCIII", 141 => "CXLI", 163 => "CLXIII", 402 => "CDII", 575 => "DLXXV", 911 => "CMXI", 1024 => "MXXIV", 3000 => "MMM");
-		return $romans[$number];	  	
+  	//return as uppercase roman numerals
+  		return $result;  	
   	}
   }
 }
